@@ -8,6 +8,8 @@ COPY package*.json ./
 
 # Install deps inside container
 RUN npm install
+RUN npm install class-transformer
+RUN npm install bcrypt --build-from-source
 
 # RUN npm install @nestjs/config
 # RUN npm install --save-dev @types/node
