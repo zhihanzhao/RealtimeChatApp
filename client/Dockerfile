@@ -1,5 +1,5 @@
 # Specify Node Version and Iamge 
-FROM node:14 AS development 
+FROM node:16 AS development 
 
 WORKDIR /zhihan/client/src/app
 
