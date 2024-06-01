@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
-import { Observable, from, switchMap } from 'rxjs';
+import { Observable, from, map, switchMap } from 'rxjs';
 import { User } from '../model/user.interface';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreateUserDto } from '../model/dto/create-user.dto';
@@ -7,6 +7,8 @@ import { LoginUserDto } from '../model/dto/login-user.dto';
 import { UserService } from '../service/user/user.service';
 import { UserHelperService } from '../service/user.helper/user.helper.service';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
+import { access } from 'fs';
+import { LoginResponse } from '../model/login-response.interface';
 
 @Controller('users')
 export class UserController {
@@ -44,10 +46,18 @@ export class UserController {
   }
 
   @Post('login')
-  login(@Body() loginUserDto: LoginUserDto): Observable<string> {
+  login(@Body() loginUserDto: LoginUserDto): Observable<LoginResponse> {
     return from(this.userHelperService.loginUserDtoToEntity(loginUserDto)).pipe(
       switchMap((user: User) => {
-        return this.userService.login(user);
+        return this.userService.login(user).pipe(
+          map((jwt: string) => {
+            return {
+              access_token: jwt,
+              token_type: 'JWT',
+              expires_in: 10000,
+            };
+          }),
+        );
       }),
     );
   }
