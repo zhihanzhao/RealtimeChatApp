@@ -39,9 +39,11 @@ export class UserService {
             verticalPosition: 'top',
           }
         )
-        return throwError(() => new Error(e));
+        return throwError(() => new Error(e.error));
       } )
     )
 
   }
+
+
 }
