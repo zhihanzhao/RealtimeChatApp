@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Observable, from } from 'rxjs';
-import { User } from 'src/user/model/user.interface';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { User } from 'src/model/interfaces/user.interface';
 
 @Injectable()
 export class AuthService {
@@ -22,5 +22,12 @@ export class AuthService {
   ): Observable<any> {
     const result = bcrypt.compare(password, storedPasswordHash);
     return from(bcrypt.compare(password, storedPasswordHash));
+  }
+
+  verifyJwt(jwt: string): Promise<any> {
+    this.jwtService.verifyAsync(jwt).then((res) => {
+      console.log('verify res', res);
+    });
+    return this.jwtService.verifyAsync(jwt);
   }
 }

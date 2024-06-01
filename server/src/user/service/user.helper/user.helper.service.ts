@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
-import { CreateUserDto } from 'src/user/model/dto/create-user.dto';
-import { LoginUserDto } from 'src/user/model/dto/login-user.dto';
-import { User } from 'src/user/model/user.interface';
+import { CreateUserDto } from 'src/model/dto/create-user.dto';
+import { LoginUserDto } from 'src/model/dto/login-user.dto';
+import { User } from 'src/model/interfaces/user.interface';
 
 @Injectable()
 export class UserHelperService {
