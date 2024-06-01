@@ -6,10 +6,10 @@ import {
   paginate,
 } from 'nestjs-typeorm-paginate';
 import { Observable, from, map, switchMap } from 'rxjs';
-import { UserEntity } from 'src/user/model/user.entity';
-import { User } from 'src/user/model/user.interface';
 import { Repository } from 'typeorm';
 import { AuthService } from 'src/auth/service/auth.service';
+import { UserEntity } from 'src/model/entity/user.entity';
+import { User } from 'src/model/interfaces/user.interface';
 
 @Injectable()
 export class UserService {
@@ -34,7 +34,7 @@ export class UserService {
                   console.log(typeof user);
                   console.log(user);
                   //return the user
-                  return this.findOne(user.id);
+                  return this.findbyId(user.id);
                 }),
               );
             }),
@@ -59,7 +59,7 @@ export class UserService {
               switchMap((matches: boolean) => {
                 if (matches) {
                   //generate and return jwt token
-                  return this.findOne(foundUser.id).pipe(
+                  return this.findbyId(foundUser.id).pipe(
                     switchMap((payload: User) => {
                       return this.authService.generateJwt(payload);
                     }),
@@ -83,6 +83,10 @@ export class UserService {
     return from(paginate<UserEntity>(this.userRepository, options));
   }
 
+  public getUserById(id: number): Promise<User> {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
   private checkEmailExists(email: string): Observable<boolean> {
     return from(this.userRepository.findOne({ where: { email } })).pipe(
       map((user: User) => {
@@ -91,7 +95,7 @@ export class UserService {
     );
   }
 
-  private findOne(id: number): Observable<User> {
+  private findbyId(id: number): Observable<User> {
     return from(this.userRepository.findOne({ where: { id } }));
   }
 

@@ -18,6 +18,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 })
 export class LoginComponent implements OnInit {
   //can update to async validators
+  
   form: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email]),
     password: new FormControl(null, []),
