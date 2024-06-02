@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 
-export function tokenGetter() {
+export function tokenGetter(): any {
   console.log("get nestjs_chat_app token", localStorage.getItem('nestjs_chat_app'));
   return localStorage.getItem('nestjs_chat_app');
 }

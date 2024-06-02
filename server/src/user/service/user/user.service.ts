@@ -31,8 +31,6 @@ export class UserService {
               //save the user in db
               return from(this.userRepository.save(newUser)).pipe(
                 switchMap((user: User) => {
-                  console.log(typeof user);
-                  console.log(user);
                   //return the user
                   return this.findbyId(user.id);
                 }),

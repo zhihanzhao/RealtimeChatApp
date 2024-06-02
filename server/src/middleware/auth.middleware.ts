@@ -17,6 +17,7 @@ export class AuthMiddleware implements NestMiddleware {
     private readonly userService: UserService,
   ) {}
   async use(req: RequestModel, res: Response, next: NextFunction) {
+    console.log(`Request URL: ${req.url}`);
     try {
       const tokenArray = req.headers['authorization'].split(' ');
       const token = tokenArray[1];
@@ -30,6 +31,7 @@ export class AuthMiddleware implements NestMiddleware {
         throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
       }
     } catch (error) {
+      console.log(error);
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
