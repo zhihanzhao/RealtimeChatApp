@@ -25,9 +25,6 @@ export class AuthService {
   }
 
   verifyJwt(jwt: string): Promise<any> {
-    this.jwtService.verifyAsync(jwt).then((res) => {
-      console.log('verify res', res);
-    });
     return this.jwtService.verifyAsync(jwt);
   }
 }

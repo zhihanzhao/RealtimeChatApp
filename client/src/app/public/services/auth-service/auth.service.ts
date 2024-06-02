@@ -18,7 +18,6 @@ export class AuthService {
   login(user: UserI){
     return this.http.post<LoginResponseI>('/api/users/login', user).pipe(
       tap( resposne => {
-        console.log("response1",resposne);
         localStorage.setItem('nestjs_chat_app', resposne.access_token);
       }),
       tap(() => this.snackbar.open(
@@ -31,7 +30,6 @@ export class AuthService {
         }
       )),
       catchError( e => {
-        console.log("error", e);
         this.snackbar.open(
           `${e.error.message}`,
           'Close',
