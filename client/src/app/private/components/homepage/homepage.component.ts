@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat-service/chat.service';
+import { RoomI, RoomPaginateI } from 'src/app/model/room.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
@@ -8,15 +10,18 @@ import { ChatService } from '../../services/chat-service/chat.service';
 })
 export class HomepageComponent implements OnInit{
   constructor(private readonly chatService: ChatService){}
-  title = this.chatService.getMessage();
-  messages: string[] = [];
+  rooms$: Observable<RoomPaginateI> | undefined;
+  rooms: RoomI[] | undefined = [];;
 
   ngOnInit(): void {
-      this.chatService.getMessage().subscribe(
-        (res: string[]) => {
-          this.messages = res;
-        }
-      )
+    this.rooms$ = this.chatService.getMyRooms('constructor');
+    this.chatService.createRoom();
+    this.chatService.getMyRooms('ngOnit').subscribe(
+    (res) => {
+        console.log(res);
+        this.rooms= res.items;
+      } 
+    )
   }
 
   
