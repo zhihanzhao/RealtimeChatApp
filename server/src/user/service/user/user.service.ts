@@ -8,8 +8,8 @@ import {
 import { Observable, from, map, switchMap } from 'rxjs';
 import { Repository } from 'typeorm';
 import { AuthService } from 'src/auth/service/auth.service';
-import { UserEntity } from 'src/model/entity/user.entity';
-import { User } from 'src/model/interfaces/user.interface';
+import { UserEntity } from 'src/user/model/entity/user.entity';
+import { User } from 'src/user/model/interfaces/user.interface';
 
 @Injectable()
 export class UserService {

@@ -1,14 +1,14 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { Observable, from, map, switchMap } from 'rxjs';
-import { User } from '../../model/interfaces/user.interface';
+import { User } from '../model/interfaces/user.interface';
 import { Pagination } from 'nestjs-typeorm-paginate';
-import { CreateUserDto } from '../../model/dto/create-user.dto';
-import { LoginUserDto } from '../../model/dto/login-user.dto';
+import { CreateUserDto } from '../model/dto/create-user.dto';
+import { LoginUserDto } from '../model/dto/login-user.dto';
 import { UserService } from '../service/user/user.service';
 import { UserHelperService } from '../service/user.helper/user.helper.service';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { access } from 'fs';
-import { LoginResponse } from '../../model/interfaces/login-response.interface';
+import { LoginResponse } from '../model/interfaces/login-response.interface';
 
 @Controller('users')
 export class UserController {

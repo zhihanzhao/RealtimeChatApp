@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from 'src/auth/service/auth.service';
-import { RequestModel } from 'src/model/interfaces/request.interface';
-import { User } from 'src/model/interfaces/user.interface';
+import { RequestModel } from 'src/user/model/interfaces/request.interface';
+import { User } from 'src/user/model/interfaces/user.interface';
 import { UserService } from 'src/user/service/user/user.service';
 
 @Injectable()
