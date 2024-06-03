@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     MatListModule,
     MatSidenavModule,
+    MatPaginatorModule
     
   ],
   exports: [
@@ -32,7 +35,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatButtonModule,
     MatInputModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatPaginatorModule
   ],
 })
 export class MaterialModule {}

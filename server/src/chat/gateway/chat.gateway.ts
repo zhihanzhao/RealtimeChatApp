@@ -12,6 +12,7 @@ import { User } from 'src/user/model/interfaces/user.interface';
 import { UserService } from 'src/user/service/user/user.service';
 import { RoomService } from '../service/room/room.service';
 import { Room } from '../model/interfaces/room.interface';
+import { Page } from '../model/interfaces/page.interface';
 
 @WebSocketGateway({
   cors: {
@@ -53,6 +54,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
           page: 1,
           limit: 10,
         });
+        rooms.meta.currentPage = rooms.meta.currentPage - 1;
         this.server.to(client.id).emit('rooms', rooms);
       }
     } catch (error) {
@@ -79,5 +81,21 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       throw new UnauthorizedException();
     }
     return this.roomService.createRoom(room, user);
+  }
+
+  @SubscribeMessage('paginateRooms')
+  async onPaginateRoom(client: Socket, page: Page) {
+    page.limit = page.limit > 100 ? 100 : page.limit;
+    // add page +1 to match angular material paginator
+    page.page = page.page + 1;
+    const rooms = await this.roomService.getRoomsForUser(
+      client.data.user.id,
+      page,
+    );
+    console.log('server get the room from DB', rooms.meta.currentPage);
+
+    // substract page -1 to match the angular material paginator
+    rooms.meta.currentPage = rooms.meta.currentPage - 1;
+    return this.server.to(client.id).emit('rooms', rooms);
   }
 }
