@@ -22,20 +22,22 @@ export class ChatService {
 
   createRoom() {
     console.log("chatservice: createRoom");
-    const user2: UserI = {
-      id: 3
-    };
-
-    const room: RoomI = {
-      name: 'Testroom',
-      users: []      
-    }
-
-    this.socket.emit('createRoom', room);
+    // this.socket.emit('createRoom', room);
   }
 
-  getMyRooms(log: string) {
-    console.log("chatservice: getMyRooms", log);
+  //why emit the rooms? not emit the rooms, it emits the parameters : limit,page
+  emitPaginateRooms(limit: number, page: number) {
+    console.log(`Fetch server emit the limit: ${limit}, page: ${page}`);
+    this.socket.emit('paginateRooms', {limit, page});
+  }
+
+  getMyRooms() {
+    console.log("chatservice: getMyRooms");
+    this.socket.fromEvent<RoomPaginateI>('rooms').subscribe(
+      (res) => {
+        console.log("client get rooms: ", res);
+      }
+    );
     return this.socket.fromEvent<RoomPaginateI>('rooms');
   }
 

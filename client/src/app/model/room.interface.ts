@@ -1,5 +1,5 @@
 import { UserI } from './user.interface';
-import { Meta } from './meta.interface';
+import { MetaI } from './meta.interface';
 
 export interface RoomI {
   id?: number;
@@ -12,5 +12,5 @@ export interface RoomI {
 
 export interface RoomPaginateI {
   items: RoomI[];
-  meta: Meta;
+  meta: MetaI;
 }

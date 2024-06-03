@@ -1,4 +1,4 @@
-export interface Meta {
+export interface MetaI {
     totalItems: number;
     itemCount: number;
     itemsPerPage: number;
