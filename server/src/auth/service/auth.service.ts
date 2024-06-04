@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Observable, from } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/user/model/interfaces/user.interface';
@@ -8,20 +7,16 @@ import { User } from 'src/user/model/interfaces/user.interface';
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  generateJwt(user: User): Observable<string> {
-    return from(this.jwtService.signAsync({ user }));
+  generateJwt(user: User): Promise<string> {
+    return this.jwtService.signAsync({ user });
   }
 
-  hashPassword(password: string): Observable<string> {
-    return from<string>(bcrypt.hash(password, 12));
+  hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 12);
   }
 
-  validatePassword(
-    password: string,
-    storedPasswordHash: string,
-  ): Observable<any> {
-    const result = bcrypt.compare(password, storedPasswordHash);
-    return from(bcrypt.compare(password, storedPasswordHash));
+  validatePassword(password: string, storedPasswordHash: string): Promise<any> {
+    return bcrypt.compare(password, storedPasswordHash);
   }
 
   verifyJwt(jwt: string): Promise<any> {

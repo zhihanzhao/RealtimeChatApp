@@ -23,42 +23,38 @@ export class UserController {
   findAll(
     @Query('page') page = 1,
     @Query('limit') limit = 10,
-  ): Observable<Pagination<User>> {
+  ): Promise<Pagination<User>> {
     limit = limit > 100 ? 100 : limit;
-    return from(
-      this.userService.findAll({
-        page,
-        limit,
-        route: '/users',
-      }),
-    );
+    return this.userService.findAll({
+      page,
+      limit,
+      route: 'http://localhost:3000/api/users',
+    });
+  }
+
+  @Get('/find-by-username')
+  async findAllByUsername(@Query('username') username: string) {
+    return this.userService.findAllByUsername(username);
   }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto): Observable<User> {
-    return from(
-      this.userHelperService.createUserDtoToEntity(createUserDto),
-    ).pipe(
-      switchMap((user: User) => {
-        return this.userService.create(user);
-      }),
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userHelperService.createUserDtoToEntity(
+      createUserDto,
     );
+    return this.userService.create(user);
   }
 
   @Post('login')
-  login(@Body() loginUserDto: LoginUserDto): Observable<LoginResponse> {
-    return from(this.userHelperService.loginUserDtoToEntity(loginUserDto)).pipe(
-      switchMap((user: User) => {
-        return this.userService.login(user).pipe(
-          map((jwt: string) => {
-            return {
-              access_token: jwt,
-              token_type: 'JWT',
-              expires_in: 10000,
-            };
-          }),
-        );
-      }),
+  async login(@Body() loginUserDto: LoginUserDto): Promise<LoginResponse> {
+    const loginUser = await this.userHelperService.loginUserDtoToEntity(
+      loginUserDto,
     );
+    const jwt = await this.userService.login(loginUser);
+    return {
+      access_token: jwt,
+      token_type: 'JWT',
+      expires_in: 10000,
+    };
   }
 }
