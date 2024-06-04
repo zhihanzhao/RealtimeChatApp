@@ -18,6 +18,7 @@ export class AuthService {
   login(user: UserI){
     return this.http.post<LoginResponseI>('/api/users/login', user).pipe(
       tap( resposne => {
+        console.log("localStorage.setItem", user);
         localStorage.setItem('nestjs_chat_app', resposne.access_token);
       }),
       tap(() => this.snackbar.open(
