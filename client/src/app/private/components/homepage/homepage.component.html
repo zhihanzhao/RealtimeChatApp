@@ -3,7 +3,7 @@
     <div style="display: flex; flex-direction: row;">
       <div>
         <h1>My Chat rooms</h1>
-        <button>Create Your Chat Room</button>
+        <button  mat-button [routerLink]="['../create-room']">Create Your Chat Room</button>
         <mat-selection-list [multiple]="false" (selectionChange)="onSelectRoom($event)">
           <mat-list-option
             *ngFor="let room of (rooms$ | async)?.items"
