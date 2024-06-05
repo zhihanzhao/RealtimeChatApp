@@ -1,6 +1,8 @@
 {{ (testValue | async)?.title }}
   <mat-nav-list>
-    <a mat-list-item [routerLink]="['public/register']">Register</a>
-    <a mat-list-item [routerLink]="['public/login']">Login</a>
+    <a style="margin: 10px;" [routerLink]="['public/register']">Register</a>
+    <a style="margin: 10px;" [routerLink]="['public/login']">Login</a>
+    <a style="margin: 10px;" [routerLink]="['public/login']">Logout</a>
+    <a style="margin: 10px;" [routerLink]="['private/home']">HomePage</a>
   </mat-nav-list>
 <router-outlet></router-outlet>
