@@ -9,6 +9,13 @@ import {MatInputModule} from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+
+
+
+
 
 
 
@@ -24,8 +31,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatInputModule,
     MatListModule,
     MatSidenavModule,
-    MatPaginatorModule
-    
+    MatPaginatorModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatIconModule
   ],
   exports: [
     MatCardModule, 
@@ -36,7 +45,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatInputModule,
     MatListModule,
     MatSidenavModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatIconModule
   ],
 })
 export class MaterialModule {}

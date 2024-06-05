@@ -14,9 +14,9 @@ export class UserService {
   ) {}
 
   create(user: UserI): Observable<UserI> {
-    console.log(user);
+    console.log('create user service user: ', user);
     return this.http.post<UserI>('api/users', user).pipe(
-      tap(createdUser => {
+      tap((createdUser) => {
         console.log(createdUser);
         return this.snackbar.open(
           `User ${createdUser.username} created successfully`,
@@ -26,9 +26,9 @@ export class UserService {
             horizontalPosition: 'right',
             verticalPosition: 'top',
           }
-        )
+        );
       }),
-      catchError(e => {
+      catchError((e) => {
         console.log(e);
         this.snackbar.open(
           `User could not be created, due to: ${e.error.message}`,
@@ -38,12 +38,21 @@ export class UserService {
             horizontalPosition: 'right',
             verticalPosition: 'top',
           }
-        )
+        );
         return throwError(() => new Error(e.error));
-      } )
-    )
-
+      })
+    );
   }
 
-
+  getAllByUsername(username: string): Observable<UserI[]> {
+    console.log('getAllByUsername service username: ', username);
+    return this.http.get<UserI[]>(`api/users/find-by-username?username=${username}`).pipe(
+      tap((userList) => {
+        console.log('getAllByUsername from BE: ', userList);
+      }),
+      catchError((e) => {
+        return throwError(() => new Error(e.error));
+      })
+    );
+  }
 }
