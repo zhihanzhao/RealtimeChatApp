@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserI } from 'src/app/model/user.interface';
+import { ChatService } from '../../services/chat-service/chat.service';
 
 @Component({
   selector: 'app-creat-room',
@@ -27,7 +28,7 @@ export class CreatRoomComponent {
   get users(): FormArray {
     return this.form.get('users') as FormArray;
   }
-  constructor() {}
+  constructor(private readonly chatService: ChatService) {}
 
   initUserFC( user :UserI) {
     return new FormControl({
@@ -50,13 +51,11 @@ export class CreatRoomComponent {
   }
 
   create(){
-    console.log(
-      `create new chat room,
-      ${this.name.value}`
-    );
-    console.log("description", this.description.value);
-    console.log("users", this.users.value);
+    this.chatService.createRoom({
+      name : this.name.value,
+      description: this.description.value,
+      users: this.users.value
+    })
     this.users.clear();
-
   }
 }

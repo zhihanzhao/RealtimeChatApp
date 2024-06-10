@@ -54,4 +54,11 @@ export class RoomService {
     room.users.push(user);
     return room;
   }
+
+  async getRoom(roomId: number): Promise<Room> {
+    return this.roomRepository.findOne({
+      where: { id: roomId },
+      relations: ['users'],
+    });
+  }
 }

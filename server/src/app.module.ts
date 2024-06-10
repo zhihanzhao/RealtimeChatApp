@@ -12,7 +12,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { ChatModule } from './chat/chat.module';
-import { RoomService } from './chat/service/room/room.service';
+import { JoinedRoomService } from './chat/service/joined-room/joined-room.service';
 
 @Module({
   imports: [

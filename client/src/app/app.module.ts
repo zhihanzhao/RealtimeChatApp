@@ -9,7 +9,6 @@ import { PublicModule } from './public/public.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { SelectUserComponent } from './private/components/select-user/select-user.component';
 
 export function tokenGetter(): any {
   console.log("get nestjs_chat_app token", localStorage.getItem('nestjs_chat_app'));

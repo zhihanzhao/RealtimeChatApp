@@ -19,6 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -35,7 +36,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatAutocompleteModule,
     MatChipsModule,
     MatIconModule
-  ],
+    ],
   exports: [
     MatCardModule, 
     // BrowserAnimationsModule, 

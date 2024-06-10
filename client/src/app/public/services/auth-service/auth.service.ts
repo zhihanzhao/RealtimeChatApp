@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, tap } from 'rxjs';
 import { LoginResponseI } from 'src/app/model/login-response.interface';
 import { UserI } from 'src/app/model/user.interface';
@@ -12,7 +13,8 @@ export class AuthService {
 
   constructor(
     private readonly http: HttpClient,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar, 
+    private jwtService: JwtHelperService
   ) {}
   
   login(user: UserI){
@@ -44,4 +46,11 @@ export class AuthService {
       }),
     )
   }
+
+  getLoggedInUser() {
+    const decodedToken = this.jwtService.decodeToken();
+    return decodedToken.user;
+  }
+
+
 }

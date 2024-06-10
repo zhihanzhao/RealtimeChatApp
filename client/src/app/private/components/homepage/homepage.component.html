@@ -2,31 +2,35 @@
   <mat-card>
     <div style="display: flex; flex-direction: row;">
       <div>
-        <h1>My Chat rooms</h1>
-        <button  mat-button [routerLink]="['../create-room']">Create Your Chat Room</button>
-        <mat-selection-list [multiple]="false" (selectionChange)="onSelectRoom($event)">
-          <mat-list-option
-            *ngFor="let room of (rooms$ | async)?.items"
-            [value]="room"
+        <div>
+          <span style="display: flex; flex-direction: row; align-items: baseline;">
+            <h2>My Chatrooms</h2>
+            <small style="margin-left:10px;">Logged in as {{user.username}}</small>
+          </span>
+          <button  mat-button [routerLink]="['../create-room']">Create Your Chat Room</button>
+        </div>
+        <div class="rooms">
+          <mat-selection-list [multiple]="false" (selectionChange)="onSelectRoom($event)">
+            <mat-list-option
+              *ngFor="let room of (rooms$ | async)?.items"
+              [value]="room"
+            >
+              Name: {{ room.name }} Id: {{ room.id }}
+              <mat-divider></mat-divider>
+            </mat-list-option>
+          </mat-selection-list>
+          <mat-paginator
+            [length]="(rooms$ | async)?.meta?.totalItems"
+            [pageIndex]="(rooms$ | async)?.meta?.currentPage"
+            [pageSize]="defultPageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="onPaginateRooms($event)"
           >
-            Name: {{ room.name }} Id: {{ room.id }}
-            <mat-divider></mat-divider>
-          </mat-list-option>
-        </mat-selection-list>
-        <mat-paginator
-          [length]="(rooms$ | async)?.meta?.totalItems"
-          [pageIndex]="(rooms$ | async)?.meta?.currentPage"
-          [pageSize]="defultPageSize"
-          [pageSizeOptions]="pageSizeOptions"
-          (page)="onPaginateRooms($event)"
-        >
-        </mat-paginator>
-      </div>
-
-      
-        <div style="margin-left: 40px;">
-          <h1>My Room</h1>
-          {{(selectedRoom | json)}}
+          </mat-paginator>
+        </div>
+      </div>   
+        <div class="chatroom">
+          <app-chat-room [chatRoom]="selectedRoom"></app-chat-room>
         </div>
   
     </div>
